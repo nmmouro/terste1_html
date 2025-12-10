@@ -132,11 +132,6 @@
                     minute: "2-digit",
                     second: "2-digit"
                   });
-
-  r.innerHTML = data + "<br>" + hora;
-}
-
-    
   }
   setInterval(atualizarRelogio, 1000);
   atualizarRelogio();
@@ -184,18 +179,9 @@
         classe = "status-concluido";
 
       html += `<tr class="${classe}">`;
-     r.forEach(c => {
-  let valor = c;
-
-  // Converte datas padrão ISO para formato BR
-  if (typeof c === "string" && c.match(/^\d{4}-\d{2}-\d{2}/)) {
-    const d = new Date(c);
-    valor = d.toLocaleDateString("pt-BR");
-  }
-
-  html += `<td>${valor}</td>`;
-});
-
+      r.forEach(c => html += `<td>${c}</td>`);
+      html += "</tr>";
+    });
 
     html += "</tbody></table>";
     div.innerHTML = html;
