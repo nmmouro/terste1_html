@@ -179,25 +179,14 @@
         classe = "status-concluido";
 
       html += `<tr class="${classe}">`;
-
            
-      r.forEach(c => {
-  let valor = c;
-
-  if (typeof c === "string" && c.startsWith("Date(")) {
-    const match = c.match(/Date\((\d+),(\d+),(\d+)\)/);
-    if (match) {
-      const ano = match[1];
-      const mes = String(Number(match[2]) + 1).padStart(2, "0");
-      const dia = String(match[3]).padStart(2, "0");
-      valor = `${dia}/${mes}/${ano}`;
-    }
-  }
-
-});
-
-
+      r.forEach(c => html += `<td>${c}</td>`);
+      html += "</tr>";
+    });
+    
     html += "</tbody></table>";
+
+
     div.innerHTML = html;
   }
 
