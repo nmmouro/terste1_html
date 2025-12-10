@@ -87,7 +87,7 @@
       font-weight: bold;
     }
 
-    .status-concluido {
+    .status-cancelado {
       background: #166534 !important;
       color: #fff;
       font-weight: bold;
@@ -188,7 +188,7 @@ function renderTabela(divId, sheetName) {
         let classe = "";
         const status = String(r[r.length - 1] || "").toLowerCase();
         if (status.includes("andamento")) classe = "status-andamento";
-        if (status.includes("concluido") || status.includes("concluído")) classe = "status-concluido";
+        if (status.includes("canceladodo") || status.includes("cancelado")) classe = "status-cancelado";
 
         html += `<tr class="${classe}">`;
 
