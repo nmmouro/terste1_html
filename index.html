@@ -122,7 +122,10 @@ const ABAS = {
 };
 
 function urlAba(nome){
-  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(nome)}`;
+  const noCache = `nocache=${Date.now()}`;
+  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(nome)}&${noCache}`;
+}
+
 }
 
 function extrairJson(txt){
