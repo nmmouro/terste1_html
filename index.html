@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+  
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Painel da Frota - TV</title>
@@ -141,12 +145,33 @@ function relogio(){
 setInterval(relogio, 1000);
 relogio();
 
-  async function carregar(aba){
-  const r = await fetch(urlAba(aba), { cache: "no-store" });
-  const t = await r.text();
-  const j = extrairJson(t);
-  return j.table;
+ async function carregar(sheet, elementoId) {
+  try {
+    const u = url(sheet);
+    const res = await fetch(u, {
+      cache: "reload",   // essencial para GitHub Pages
+      mode: "cors"
+    });
+
+    const txt = await res.text();
+
+    const json = JSON.parse(
+      txt.substring(txt.indexOf("{"), txt.lastIndexOf("}") + 1)
+    );
+
+    const cols = json.table.cols.map(c => c.label);
+    const rows = json.table.rows.map(r =>
+      (r.c || []).map(c => (c ? c.v : ""))
+    );
+
+    render(elementoId, cols, rows);
+  } catch (e) {
+    document.getElementById(elementoId).innerText =
+      "Erro ao atualizar dados";
+    console.error("ERRO:", e);
+  }
 }
+
 
 
 function montarTabela(targetId, table){
