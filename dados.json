@@ -1,33 +1,25 @@
-/* ======================================================
-   CARREGA OS DADOS REAIS DA PLANILHA VIA JSON
-====================================================== */
-async function carregar() {
-  const titulo = document.getElementById("titulo");
-  titulo.innerText = "Carregando dados da planilha...";
+{
+  "PAINEL": {
+    "cols": ["Data", "Hora", "Empregado", "Serviço", "Status"],
+    "rows": [
+      ["Date(2025,11,10)", "Date(1899,11,30,16,0,0)", "João", "Visita técnica", "Ativo"],
+      ["Date(2025,11,11)", "Date(1899,11,30,9,30,0)", "Carlos", "Entrega de documentos", "Cancelado"]
+    ]
+  },
 
-  try {
-    // 🔥 ALTERE AQUI O NOME DO SEU ARQUIVO JSON 🔥
-    const url = "https://docs.google.com/spreadsheets/d/1Ch3AjQ0MDo4WuQWFDR3r8nZrHb4yQkSLOtT5_QgxT6E";  // exemplo: "tabelas.json", "api.json", etc.
+  "AGENDA DO DIA": {
+    "cols": ["Data", "Hora", "Cliente", "Endereço", "Status"],
+    "rows": [
+      ["Date(2025,11,10)", "Date(1899,11,30,14,15,0)", "Maria", "Centro", "Confirmado"],
+      ["Date(2025,11,10)", "Date(1899,11,30,18,0,0)", "Pedro", "Jardins", "Cancelado"]
+    ]
+  },
 
-    const resposta = await fetch(url);
-
-    if (!resposta.ok) {
-      throw new Error("Erro ao carregar o arquivo JSON: " + resposta.status);
-    }
-
-    const planilhas = await resposta.json();
-
-    titulo.innerText = "Visualização da Planilha";
-
-    // percorre todas as abas encontradas
-    Object.keys(planilhas).forEach(sheetName => {
-      renderSheet(sheetName, planilhas[sheetName]);
-    });
-
-  } catch (erro) {
-    titulo.innerText = "Erro ao carregar dados";
-    console.error("Erro ao carregar JSON:", erro);
-    document.getElementById("conteudo").innerHTML =
-      "<p style='color:red;'>Não foi possível carregar o arquivo JSON.</p>";
+  "AGENDA SERVIÇO SOCIAL": {
+    "cols": ["Data", "Hora", "Beneficiário", "Motivo", "Status"],
+    "rows": [
+      ["Date(2025,11,12)", "Date(1899,11,30,10,0,0)", "Ana", "Visita domiciliar", "Ativo"],
+      ["Date(2025,11,12)", "Date(1899,11,30,15,45,0)", "Roberto", "Acompanhamento", "Cancelado"]
+    ]
   }
 }
